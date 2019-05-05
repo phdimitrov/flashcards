@@ -1,7 +1,6 @@
 import React from "react";
 import {StyleSheet, Text, View} from 'react-native';
 import Card from "../components/Card";
-import PropTypes from "prop-types";
 import ViewRoot from "../components/common/ViewRoot";
 import {black} from "../utils/theme";
 import DefaultButton from "../components/common/DefaultButton";
@@ -18,8 +17,10 @@ import {AppLoading} from "expo";
  */
 export default class QuizScreen extends React.Component {
 
-    static propTypes = {
-        deckId: PropTypes.string.isRequired
+    static navigationOptions = ({navigation}) => {
+        return {
+            title: navigation.state.params.deckId + " Quiz"
+        }
     };
 
     constructor(props) {
@@ -34,7 +35,7 @@ export default class QuizScreen extends React.Component {
     }
 
     componentDidMount() {
-        getDeck(this.props.deckId)
+        getDeck(this.props.navigation.state.params.deckId)
             .then((res) => {
                 console.log(res);
                 this.setState(() => ({
@@ -65,17 +66,17 @@ export default class QuizScreen extends React.Component {
     };
 
     handleBackToDeck = () => {
-        //TODO
+        this.props.navigation.goBack();
     };
 
     render() {
         const {ready, deck} = this.state;
         if (!ready) {
-            return (<AppLoading />)
+            return (<AppLoading/>)
         }
 
         if (!deck) {
-            return(<ViewRoot><Text>No such deck</Text></ViewRoot>);
+            return (<ViewRoot><Text>No such deck</Text></ViewRoot>);
         }
 
         const {questions} = deck;

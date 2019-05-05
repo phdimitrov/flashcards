@@ -7,12 +7,15 @@ import {theme} from "../utils/theme";
 export default class DeckList extends React.Component {
 
     static propTypes = {
-        decks: PropTypes.array.isRequired
+        decks: PropTypes.array.isRequired,
+        navigation: PropTypes.object.isRequired,
     };
 
     onDeckPress = (deck) => {
-        console.log(deck);
-        //TODO open DECK Screen
+        this.props.navigation.navigate(
+            'DeckScreen',
+            {deckId: deck.title}
+        )
     };
 
     renderItem = ({item}) => {
@@ -24,7 +27,7 @@ export default class DeckList extends React.Component {
         return (
             <View>
                 {decks.length !== 0
-                    ? (<FlatList data={decks} renderItem={this.renderItem} keyExtractor={(item,index) => item.title}/>)
+                    ? (<FlatList data={decks} renderItem={this.renderItem} keyExtractor={(item, index) => item.title}/>)
                     : (<Text style={theme.emptyList}>Empty list</Text>)
                 }
             </View>

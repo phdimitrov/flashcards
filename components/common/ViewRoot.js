@@ -1,5 +1,6 @@
 import React from 'react'
-import {StyleSheet, View, KeyboardAvoidingView} from 'react-native'
+import {KeyboardAvoidingView, StyleSheet, View} from 'react-native'
+import {lightGray} from "../../utils/theme";
 
 export default function ViewRoot({children, onPress, keyboardAware = false, style = {}}) {
     return (
@@ -23,5 +24,7 @@ export default function ViewRoot({children, onPress, keyboardAware = false, styl
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: lightGray,
+        padding: 16,
     }
 });

@@ -4,13 +4,19 @@ import {getDecks, saveDeckTitle} from "../utils/api";
 import {theme} from "../utils/theme";
 import DefaultButton from "./common/DefaultButton";
 import ViewRoot from "./common/ViewRoot";
-import { AppLoading } from 'expo';
+import {AppLoading} from 'expo';
 
 /**
  * An option to enter in the title for the new deck
  * An option to submit the new deck title
  */
 export default class NewDeck extends React.Component {
+
+    static navigationOptions = ({navigation}) => {
+        return {
+            title: 'Create Deck'
+        }
+    };
 
     state = {
         title: '',
@@ -33,17 +39,15 @@ export default class NewDeck extends React.Component {
             .then((res) => {
                 this.setState(() => ({
                     loading: false
-                }))
+                }));
+                alert("Saved");
             });
-
-        console.log("Saved", getDecks());
-        //TODO
     };
 
     render() {
         const {loading, title} = this.state;
         if (loading) {
-            return (<AppLoading />)
+            return (<AppLoading/>)
         }
 
         return (

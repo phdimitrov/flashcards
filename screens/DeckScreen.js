@@ -1,6 +1,5 @@
 import React from "react";
 import DeckItem from "../components/DeckItem";
-import PropTypes from "prop-types";
 import ViewRoot from "../components/common/ViewRoot";
 import DefaultButton from "../components/common/DefaultButton";
 import {getDeck} from "../utils/api";
@@ -15,8 +14,10 @@ import {Text} from "react-native";
  */
 export default class DeckScreen extends React.Component {
 
-    static propTypes = {
-        deckId: PropTypes.string.isRequired
+    static navigationOptions = ({navigation}) => {
+        return {
+            title: navigation.state.params.deckId
+        }
     };
 
     state = {
@@ -25,7 +26,7 @@ export default class DeckScreen extends React.Component {
     };
 
     componentDidMount() {
-        getDeck(this.props.deckId)
+        getDeck(this.props.navigation.state.params.deckId)
             .then((res) => {
                 console.log(res);
                 this.setState(() => ({
@@ -36,23 +37,27 @@ export default class DeckScreen extends React.Component {
     }
 
     handleAddCard = () => {
-        console.log("add Card", this.state.deck)
-        //TODO
+        this.props.navigation.navigate(
+            'NewCard',
+            {deckId: this.state.deck.title}
+        )
     };
 
     handleStartQuiz = () => {
-        console.log("start quiz", this.state.deck)
-        //TODO
+        this.props.navigation.navigate(
+            'QuizScreen',
+            {deckId: this.state.deck.title}
+        )
     };
 
     render() {
         const {ready, deck} = this.state;
         if (!ready) {
-            return (<AppLoading />)
+            return (<AppLoading/>)
         }
 
         if (!deck) {
-            return(<ViewRoot><Text>No such deck</Text></ViewRoot>);
+            return (<ViewRoot><Text>No such deck</Text></ViewRoot>);
         }
 
         return (

@@ -8,9 +8,11 @@
   },
   "dependencies": {
     "expo": "^32.0.0",
+    "prop-types": "latest",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
-    "prop-types": "latest"
+    "react-navigation": "^3.9.1",
+    "@expo/vector-icons": "latest"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"

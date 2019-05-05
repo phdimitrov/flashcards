@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import {Text, TextInput} from 'react-native';
 import {addCardToDeck, getDeck, getDecks} from "../utils/api";
 import {theme} from "../utils/theme";
@@ -14,8 +13,10 @@ import {AppLoading} from "expo";
  */
 export default class NewCard extends React.Component {
 
-    static propTypes = {
-        deckId: PropTypes.string.isRequired
+    static navigationOptions = ({navigation}) => {
+        return {
+            title: navigation.state.params.deckId
+        }
     };
 
     state = {
@@ -26,7 +27,9 @@ export default class NewCard extends React.Component {
     };
 
     componentDidMount() {
-        getDeck(this.props.deckId)
+        console.log("NewCard========", this.props.navigation.state.params.deckId);
+
+        getDeck(this.props.navigation.state.params.deckId)
             .then((res) => {
                 console.log(res);
                 this.setState(() => ({
@@ -64,21 +67,19 @@ export default class NewCard extends React.Component {
             .then((res) => {
                 this.setState(() => ({
                     ready: true
-                }))
+                }));
+                alert("Saved");
             });
-
-        console.log("Saved", getDecks());
-        //TODO
     };
 
     render() {
         const {ready, deck, question, answer} = this.state;
         if (!ready) {
-            return (<AppLoading />)
+            return (<AppLoading/>)
         }
 
         if (!deck) {
-            return(<ViewRoot><Text>No such deck</Text></ViewRoot>);
+            return (<ViewRoot><Text>No such deck</Text></ViewRoot>);
         }
 
         return (
