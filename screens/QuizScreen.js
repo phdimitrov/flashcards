@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 import ViewRoot from "../components/common/ViewRoot";
 import {black} from "../utils/theme";
 import DefaultButton from "../components/common/DefaultButton";
+import {getDeck} from "../utils/api";
+import {AppLoading} from "expo";
 
 /**
  * Displays a card question
@@ -17,7 +19,7 @@ import DefaultButton from "../components/common/DefaultButton";
 export default class QuizScreen extends React.Component {
 
     static propTypes = {
-        deck: PropTypes.object.isRequired
+        deckId: PropTypes.string.isRequired
     };
 
     constructor(props) {
@@ -26,7 +28,20 @@ export default class QuizScreen extends React.Component {
         this.state = {
             cardIndex: 0,
             correctAnswers: 0,
+            ready: false,
+            deck: undefined
         };
+    }
+
+    componentDidMount() {
+        getDeck(this.props.deckId)
+            .then((res) => {
+                console.log(res);
+                this.setState(() => ({
+                    deck: res,
+                    ready: true
+                }))
+            })
     }
 
     handleCorrectAnswer = () => {
@@ -54,9 +69,16 @@ export default class QuizScreen extends React.Component {
     };
 
     render() {
-        const {deck} = this.props;
-        const {questions} = deck;
+        const {ready, deck} = this.state;
+        if (!ready) {
+            return (<AppLoading />)
+        }
 
+        if (!deck) {
+            return(<ViewRoot><Text>No such deck</Text></ViewRoot>);
+        }
+
+        const {questions} = deck;
         const totalQuestions = questions.length;
         const {cardIndex} = this.state;
 
@@ -67,12 +89,12 @@ export default class QuizScreen extends React.Component {
             const {correctAnswers} = this.state;
             const percentage = (totalQuestions === 0 ? 0 : (correctAnswers * 100) / totalQuestions).toFixed(2);
             return (
-                <View>
+                <ViewRoot style={{alignItems: "center"}}>
                     <Text style={styles.result}>Results</Text>
                     <Text style={styles.resultSummary}>Correct {percentage}%</Text>
                     <DefaultButton onPress={this.handleRestartQuiz}>Restart Quiz</DefaultButton>
                     <DefaultButton onPress={this.handleBackToDeck}>Back to Deck</DefaultButton>
-                </View>
+                </ViewRoot>
             )
         }
 

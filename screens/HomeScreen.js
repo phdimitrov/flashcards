@@ -4,6 +4,7 @@ import DeckList from "../components/DeckList";
 import {getDecks} from "../utils/api";
 import ViewRoot from "../components/common/ViewRoot";
 import {theme} from "../utils/theme";
+import { AppLoading } from 'expo';
 
 /**
  * Displays the title of each Deck
@@ -11,13 +12,30 @@ import {theme} from "../utils/theme";
  */
 export default class HomeScreen extends React.Component {
 
+    state = {
+        ready: false,
+        decks: []
+    };
+
+    componentDidMount() {
+        getDecks()
+            .then((res) => {
+                this.setState(() => ({
+                    decks: res,
+                    ready: true
+                }))
+            })
+    }
+
     render() {
-        const decks = getDecks();
-        const numOfDecks = Object.keys(decks).length;
+        const {ready, decks} = this.state;
+        if (!ready) {
+            return (<AppLoading />)
+        }
 
         return (
             <ViewRoot>
-                <Text style={theme.header}>Total decks: {numOfDecks}</Text>
+                <Text style={theme.header}>Total decks: {decks.length}</Text>
                 <DeckList decks={decks}/>
             </ViewRoot>
         );

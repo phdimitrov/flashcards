@@ -64,7 +64,7 @@ export const theme = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
-    textField: {
+    textInput: {
         fontSize: 20,
         minWidth: 280,
         marginBottom: 8,

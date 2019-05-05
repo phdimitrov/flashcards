@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import {Text, TextInput} from 'react-native';
-import {addCardToDeck, getDecks} from "../utils/api";
+import {addCardToDeck, getDeck, getDecks} from "../utils/api";
 import {theme} from "../utils/theme";
 import ViewRoot from "./common/ViewRoot";
 import DefaultButton from "./common/DefaultButton";
+import {AppLoading} from "expo";
 
 /**
  * An option to enter in the question
@@ -14,13 +15,26 @@ import DefaultButton from "./common/DefaultButton";
 export default class NewCard extends React.Component {
 
     static propTypes = {
-        deck: PropTypes.object.isRequired
+        deckId: PropTypes.string.isRequired
     };
 
     state = {
         question: '',
-        answer: ''
+        answer: '',
+        deck: undefined,
+        ready: false
     };
+
+    componentDidMount() {
+        getDeck(this.props.deckId)
+            .then((res) => {
+                console.log(res);
+                this.setState(() => ({
+                    deck: res,
+                    ready: true
+                }))
+            })
+    }
 
     handleQuestionChangeText = (input) => {
         this.setState(() => ({
@@ -40,29 +54,46 @@ export default class NewCard extends React.Component {
             answer: this.state.answer
         };
 
-        addCardToDeck(card, this.props.deck.title);
         this.setState(() => ({
             question: '',
             answer: '',
+            ready: false,
         }));
+
+        addCardToDeck(card, this.state.deck.title)
+            .then((res) => {
+                this.setState(() => ({
+                    ready: true
+                }))
+            });
+
         console.log("Saved", getDecks());
         //TODO
     };
 
     render() {
+        const {ready, deck, question, answer} = this.state;
+        if (!ready) {
+            return (<AppLoading />)
+        }
+
+        if (!deck) {
+            return(<ViewRoot><Text>No such deck</Text></ViewRoot>);
+        }
+
         return (
             <ViewRoot keyboardAware={true} style={{alignItems: "center"}}>
                 <Text style={theme.header}>Add card with question and an answer!</Text>
                 <TextInput
-                    style={theme.textField}
+                    style={theme.textInput}
                     placeholder="Set question"
-                    value={this.state.question}
+                    value={question}
                     onChangeText={this.handleQuestionChangeText}
                 />
                 <TextInput
-                    style={theme.textField}
+                    style={theme.textInput}
                     placeholder="Set answer"
-                    value={this.state.answer}
+                    value={answer}
                     onChangeText={this.handleAnswerChangeText}
                 />
                 <DefaultButton onPress={this.handleSubmit}>Submit</DefaultButton>

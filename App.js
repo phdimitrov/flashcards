@@ -14,10 +14,10 @@ export default class App extends React.Component {
         return (
             <ViewRoot style={styles.app}>
                 <HomeScreen/>
-                {/*<DeckScreen deck={getDecks()[0]}/>*/}
-                {/*<QuizScreen deck={getDecks()[1]}/>*/}
+                {/*<DeckScreen deckId='React'/>*/}
+                {/*<QuizScreen deckId='React'/>*/}
                 {/*<NewDeck />*/}
-                {/*<NewCard deck={getDecks()[1]}/>*/}
+                {/*<NewCard deckId='React'/>*/}
             </ViewRoot>
         );
     }
