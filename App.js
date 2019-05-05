@@ -1,21 +1,31 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {StyleSheet} from 'react-native';
+import HomeScreen from "./screens/HomeScreen";
+import {lightGray} from "./utils/theme";
+import ViewRoot from "./components/common/ViewRoot";
+import DeckScreen from "./screens/DeckScreen";
+import {getDecks} from "./utils/api";
+import QuizScreen from "./screens/QuizScreen";
+import NewDeck from "./components/NewDeck";
+import NewCard from "./components/NewCard";
 
 export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
-    );
-  }
+    render() {
+        return (
+            <ViewRoot style={styles.app}>
+                <HomeScreen/>
+                {/*<DeckScreen deck={getDecks()[0]}/>*/}
+                {/*<QuizScreen deck={getDecks()[1]}/>*/}
+                {/*<NewDeck />*/}
+                {/*<NewCard deck={getDecks()[1]}/>*/}
+            </ViewRoot>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    app: {
+        backgroundColor: lightGray,
+        padding: 16
+    }
 });

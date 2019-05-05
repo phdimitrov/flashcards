@@ -1,7 +1,7 @@
 import React from "react";
-import {StyleSheet, Text, TouchableWithoutFeedback} from 'react-native';
+import {StyleSheet, Text, View, TouchableWithoutFeedback} from 'react-native';
 import PropTypes from "prop-types";
-import {black, darkGray, red} from "../utils/theme";
+import {black, darkGray} from "../utils/theme";
 
 /**
  * Displays deck information with ability to press on it
@@ -18,9 +18,11 @@ export default class DeckItem extends React.Component {
         const {deck, onPress, style} = this.props;
         const {title, questions} = deck;
         return (
-            <TouchableWithoutFeedback onPress={onPress} style={[{alignItems:"center"},style]}>
-                <Text style={styles.header}>{title}</Text>
-                <Text style={styles.subhead}>{questions.length} {questions.length === 1 ? "card" : "cards"}</Text>
+            <TouchableWithoutFeedback onPress={onPress}>
+                <View style={[{alignItems: "center"}, style]}>
+                    <Text style={styles.header}>{title}</Text>
+                    <Text style={styles.subhead}>{questions.length} {questions.length === 1 ? "card" : "cards"}</Text>
+                </View>
             </TouchableWithoutFeedback>
         );
     }
@@ -30,10 +32,10 @@ export default class DeckItem extends React.Component {
 const styles = StyleSheet.create({
     header: {
         fontSize: 20,
-        textColor: black
+        color: black
     },
     subhead: {
         fontSize: 12,
-        textColor: darkGray
+        color: darkGray
     }
 });

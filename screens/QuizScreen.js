@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, Text, View} from "../utils/native";
+import {StyleSheet, Text, View} from 'react-native';
 import Card from "../components/Card";
 import PropTypes from "prop-types";
 import ViewRoot from "../components/common/ViewRoot";
@@ -56,8 +56,8 @@ export default class QuizScreen extends React.Component {
             const {correctAnswers} = this.state;
             const percentage = (totalQuestions === 0 ? 0 : (correctAnswers * 100) / totalQuestions).toFixed(2);
             return (
-                <View style={styles.result}>
-                    <Text>Results</Text>
+                <View>
+                    <Text style={styles.result}>Results</Text>
                     <Text style={styles.resultSummary}>Correct {percentage}%</Text>
                 </View>
             )
@@ -85,17 +85,18 @@ export default class QuizScreen extends React.Component {
 const styles = StyleSheet.create({
     hint: {
         fontSize: 10,
-        textColor: black,
+        color: black,
         fontStyle: "italic",
         alignSelf: "flex-start",
     },
     result: {
         fontSize: 22,
-        textColor: black,
+        color: black,
         textAlign: "center"
     },
     resultSummary: {
         fontStyle: "italic",
-        fontSize: 16
+        fontSize: 16,
+        textAlign: "center"
     }
 });

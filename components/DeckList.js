@@ -24,7 +24,7 @@ export default class DeckList extends React.Component {
         return (
             <View>
                 {decks.length !== 0
-                    ? (<FlatList data={decks} renderItem={this.renderItem}/>)
+                    ? (<FlatList data={decks} renderItem={this.renderItem} keyExtractor={(item,index) => item.title}/>)
                     : (<Text style={theme.emptyList}>Empty list</Text>)
                 }
             </View>

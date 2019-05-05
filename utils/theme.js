@@ -1,4 +1,4 @@
-import {StyleSheet} from "./native";
+import {StyleSheet} from 'react-native';
 
 export const white = '#fff';
 export const lightGray = '#e8e8e8';
@@ -58,7 +58,7 @@ export const theme = StyleSheet.create({
             height: 3
         },
         textAlign: 'center',
-        textColor: black,
+        color: black,
         padding: 8,
         minWidth: 100,
         justifyContent: "center",

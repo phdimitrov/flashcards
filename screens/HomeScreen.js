@@ -1,5 +1,5 @@
 import React from "react";
-import {Text} from "../utils/native";
+import {Text} from 'react-native';
 import DeckList from "../components/DeckList";
 import {getDecks} from "../utils/api";
 import ViewRoot from "../components/common/ViewRoot";
