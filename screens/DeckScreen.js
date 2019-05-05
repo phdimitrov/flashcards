@@ -5,6 +5,7 @@ import DefaultButton from "../components/common/DefaultButton";
 import {getDeck} from "../utils/api";
 import {AppLoading} from "expo";
 import {Text} from "react-native";
+import {clearLocalNotification, setLocalNotification} from "../utils/helpers";
 
 /**
  * Displays the title of the Deck
@@ -49,6 +50,10 @@ export default class DeckScreen extends React.Component {
     };
 
     handleStartQuiz = () => {
+
+        //clear the notification for today and set a for tomorrow
+        clearLocalNotification().then(setLocalNotification);
+
         this.props.navigation.navigate(
             'QuizScreen',
             {deckId: this.state.deck.title}

@@ -5,6 +5,7 @@ import {getDecks} from "../utils/api";
 import ViewRoot from "../components/common/ViewRoot";
 import {theme} from "../utils/theme";
 import {AppLoading} from 'expo';
+import {setLocalNotification} from "../utils/helpers";
 
 /**
  * Displays the title of each Deck
@@ -24,6 +25,8 @@ export default class HomeScreen extends React.Component {
     };
 
     componentDidMount() {
+        setLocalNotification();
+
         this._subscribe = this.props.navigation.addListener('didFocus', () => {
             this.setState(() => ({
                 ready: false
