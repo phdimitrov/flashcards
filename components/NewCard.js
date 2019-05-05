@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import {Text, TextField} from "../utils/native";
+import {Text, TextInput} from 'react-native';
 import {addCardToDeck, getDecks} from "../utils/api";
 import {theme} from "../utils/theme";
 import ViewRoot from "./common/ViewRoot";
@@ -53,13 +53,13 @@ export default class NewCard extends React.Component {
         return (
             <ViewRoot keyboardAware={true} style={{alignItems: "center"}}>
                 <Text style={theme.header}>Add card with question and an answer!</Text>
-                <TextField
+                <TextInput
                     style={theme.textField}
                     placeholder="Set question"
                     value={this.state.question}
                     onChangeText={this.handleQuestionChangeText}
                 />
-                <TextField
+                <TextInput
                     style={theme.textField}
                     placeholder="Set answer"
                     value={this.state.answer}

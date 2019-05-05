@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, Text, TouchableWithoutFeedback} from "../utils/native";
+import {StyleSheet, Text, TouchableWithoutFeedback} from 'react-native';
 import PropTypes from "prop-types";
 import {black, darkGray, red} from "../utils/theme";
 

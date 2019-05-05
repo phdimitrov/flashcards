@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet, View, KeyboardAvoidingView} from '../../utils/native'
+import {StyleSheet, View, KeyboardAvoidingView} from 'react-native'
 
 export default function ViewRoot({children, onPress, keyboardAware = false, style = {}}) {
     return (

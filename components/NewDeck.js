@@ -1,5 +1,5 @@
 import React from "react";
-import {Text, TextField} from "../utils/native";
+import {Text, TextInput} from 'react-native';
 import {getDecks, saveDeckTitle} from "../utils/api";
 import {theme} from "../utils/theme";
 import DefaultButton from "./common/DefaultButton";
@@ -34,7 +34,7 @@ export default class NewDeck extends React.Component {
         return (
             <ViewRoot keyboardAware={true} style={{alignItems: "center"}}>
                 <Text style={theme.header}>What is the title of your new deck?</Text>
-                <TextField
+                <TextInput
                     style={theme.textField}
                     placeholder="Set title"
                     value={this.state.title}
