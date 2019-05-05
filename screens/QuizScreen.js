@@ -42,6 +42,17 @@ export default class QuizScreen extends React.Component {
         }));
     };
 
+    handleRestartQuiz = () => {
+        this.setState(() => ({
+            cardIndex: 0,
+            correctAnswers: 0,
+        }));
+    };
+
+    handleBackToDeck = () => {
+        //TODO
+    };
+
     render() {
         const {deck} = this.props;
         const {questions} = deck;
@@ -59,6 +70,8 @@ export default class QuizScreen extends React.Component {
                 <View>
                     <Text style={styles.result}>Results</Text>
                     <Text style={styles.resultSummary}>Correct {percentage}%</Text>
+                    <DefaultButton onPress={this.handleRestartQuiz}>Restart Quiz</DefaultButton>
+                    <DefaultButton onPress={this.handleBackToDeck}>Back to Deck</DefaultButton>
                 </View>
             )
         }
@@ -97,6 +110,7 @@ const styles = StyleSheet.create({
     resultSummary: {
         fontStyle: "italic",
         fontSize: 16,
-        textAlign: "center"
+        textAlign: "center",
+        marginBottom: 64
     }
 });
