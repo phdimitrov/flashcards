@@ -40,25 +40,3 @@ const TabNavigator = createBottomTabNavigator({
 });
 
 export default createAppContainer(TabNavigator);
-
-//
-// export default class App extends React.Component {
-//     render() {
-//         return (
-//             <ViewRoot style={styles.app}>
-//                 {/*<HomeScreen/>*/}
-//                 {/*<DeckScreen deckId='React'/>*/}
-//                 {/*<QuizScreen deckId='React'/>*/}
-//                 {/*<NewDeck />*/}
-//                 {/*<NewCard deckId='React'/>*/}
-//             </ViewRoot>
-//         );
-//     }
-// }
-//
-// const styles = StyleSheet.create({
-//     app: {
-//         backgroundColor: lightGray,
-//         padding: 16
-//     }
-// });

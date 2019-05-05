@@ -1,10 +1,10 @@
 import React from "react";
-import {StyleSheet, Text, View} from 'react-native'
+import {StyleSheet, Text, View, Animated} from 'react-native'
 import TextButton from "./common/TextButton";
 import PropTypes from "prop-types";
 
 /**
- * Show card with ability to flip it from question to answer
+ * Show card with ability to toggle question to answer
  */
 export default class Card extends React.Component {
 
@@ -14,22 +14,31 @@ export default class Card extends React.Component {
     };
 
     state = {
-        answerMode: false
+        answerMode: false,
+        bounceValue: new Animated.Value(1),
     };
 
     handleCardFlip = () => {
+        Animated.sequence([
+            Animated.timing(this.state.bounceValue, { duration: 200, toValue: 1.04}),
+            Animated.spring(this.state.bounceValue, { toValue: 1, friction: 4})
+        ]).start();
+
         this.setState((prevState) => ({
             answerMode: !prevState.answerMode
         }));
     };
 
     render() {
-        const {answerMode} = this.state;
+        const {answerMode, bounceValue} = this.state;
         const {question, answer} = this.props.card;
 
         return (
             <View style={[this.props.style]}>
-                <Text style={styles.header}>{answerMode ? answer : question}</Text>
+                <Animated.Text
+                    style={[styles.header, {transform: [{scale: bounceValue}]}]}>
+                    {answerMode ? answer : question}
+                    </Animated.Text>
                 <TextButton onPress={this.handleCardFlip}>Show {answerMode ? "question" : "answer"}</TextButton>
             </View>
         );

@@ -70,6 +70,8 @@ export default class DeckScreen extends React.Component {
             return (<ViewRoot><Text>No such deck</Text></ViewRoot>);
         }
 
+        const cardsCount = deck.questions.length;
+
         return (
             <ViewRoot style={{alignItems: "center"}}>
                 <DeckItem deck={deck} style={{marginBottom: 64}}/>
@@ -77,10 +79,12 @@ export default class DeckScreen extends React.Component {
                     onPress={this.handleAddCard}>
                     Add Card
                 </DefaultButton>
-                <DefaultButton
-                    onPress={this.handleStartQuiz}>
-                    Start Quiz
-                </DefaultButton>
+                {cardsCount !== 0 && (
+                    <DefaultButton
+                        onPress={this.handleStartQuiz}>
+                        Start Quiz
+                    </DefaultButton>
+                )}
             </ViewRoot>
         );
     }
