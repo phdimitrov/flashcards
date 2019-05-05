@@ -35,14 +35,19 @@ export default class QuizScreen extends React.Component {
     }
 
     componentDidMount() {
-        getDeck(this.props.navigation.state.params.deckId)
-            .then((res) => {
-                console.log(res);
-                this.setState(() => ({
-                    deck: res,
-                    ready: true
-                }))
-            })
+        this._subscribe = this.props.navigation.addListener('didFocus', () => {
+            this.setState(() => ({
+                ready: false
+            }));
+            getDeck(this.props.navigation.state.params.deckId)
+                .then((res) => {
+                    this.setState(() => ({
+                        deck: res,
+                        ready: true
+                    }))
+                })
+        });
+
     }
 
     handleCorrectAnswer = () => {

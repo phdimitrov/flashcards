@@ -24,13 +24,20 @@ export default class HomeScreen extends React.Component {
     };
 
     componentDidMount() {
-        getDecks()
-            .then((res) => {
-                this.setState(() => ({
-                    decks: res,
-                    ready: true
-                }))
-            })
+        this._subscribe = this.props.navigation.addListener('didFocus', () => {
+            this.setState(() => ({
+                ready: false
+            }));
+
+            getDecks()
+                .then((res) => {
+                    this.setState(() => ({
+                        decks: res,
+                        ready: true
+                    }))
+                })
+        });
+
     }
 
     render() {
@@ -40,7 +47,7 @@ export default class HomeScreen extends React.Component {
         }
 
         return (
-            <ViewRoot>
+            <ViewRoot style={{paddingBottom: 54}}>
                 <Text style={theme.header}>Total decks: {decks.length}</Text>
                 <DeckList decks={decks} navigation={this.props.navigation}/>
             </ViewRoot>

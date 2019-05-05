@@ -15,7 +15,6 @@ export function getDecks() {
     return AsyncStorage
         .getItem(DECK_STORAGE_KEY)
         .then((data) => {
-            console.log("getItem", data);
             if (!data || Object.keys(data).length === 0) {
 
                 //if no initial data add the bundled one
@@ -31,8 +30,6 @@ export function getDecks() {
             const decks = JSON.parse(data);
             return Object.values(decks);
         })
-
-    // return Object.values(DECKS_BUNDLED);
 }
 
 //take in a single id argument and return the deck associated with that id.
@@ -42,12 +39,9 @@ export function getDeck(title) {
     return AsyncStorage
         .getItem(DECK_STORAGE_KEY)
         .then((data) => {
-            console.log("getItem", data);
             const decks = JSON.parse(data);
             return decks[title];
         })
-
-    // return DECKS_BUNDLED[title];
 }
 
 //take in a single title argument and add it to the decks.
@@ -61,27 +55,15 @@ export function saveDeckTitle(title) {
                 questions: []
             }
         }))
-
-
-    // DECKS_BUNDLED = {
-    //     ...DECKS_BUNDLED,
-    //     [title]: {
-    //         title: title,
-    //         questions: []
-    //     }
-    // };
-    // return getDeck(title)
 }
 
 // take in two arguments, title and card,
 // and will add the card to the list of questions for the deck with the associated title.
 export function addCardToDeck(card, title) {
     forTesting();
-    console.log("Ad card", card, title);
 
     return getDeck(title)
         .then((deck) => {
-            console.log("Ad card2", deck);
             return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
                 [deck.title]: {
                     title: deck.title,
@@ -89,14 +71,6 @@ export function addCardToDeck(card, title) {
                 }
             }));
         })
-    // DECKS_BUNDLED = {
-    //     ...DECKS_BUNDLED,
-    //     [title]: {
-    //         ...DECKS_BUNDLED[title],
-    //         questions: DECKS_BUNDLED[title].questions.concat([card])
-    //     }
-    // };
-    // return getDeck(title);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

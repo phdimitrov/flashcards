@@ -27,16 +27,20 @@ export default class NewCard extends React.Component {
     };
 
     componentDidMount() {
-        console.log("NewCard========", this.props.navigation.state.params.deckId);
+        this._subscribe = this.props.navigation.addListener('didFocus', () => {
+            this.setState(() => ({
+                ready: false
+            }));
 
-        getDeck(this.props.navigation.state.params.deckId)
-            .then((res) => {
-                console.log(res);
-                this.setState(() => ({
-                    deck: res,
-                    ready: true
-                }))
-            })
+            getDeck(this.props.navigation.state.params.deckId)
+                .then((res) => {
+                    this.setState(() => ({
+                        deck: res,
+                        ready: true
+                    }))
+                })
+        });
+
     }
 
     handleQuestionChangeText = (input) => {
