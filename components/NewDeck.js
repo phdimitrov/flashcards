@@ -30,17 +30,26 @@ export default class NewDeck extends React.Component {
     };
 
     handleSubmit = () => {
+        const { title } = this.state;
+
+        if(!title) {
+            return alert("Please fill the field.")
+        }
+
         this.setState(() => ({
             title: '',
             loading: true
         }));
 
-        saveDeckTitle(this.state.title)
+        saveDeckTitle(title)
             .then((res) => {
                 this.setState(() => ({
                     loading: false
                 }));
-                alert("Saved");
+                this.props.navigation.navigate(
+                    'DeckScreen',
+                    {deckId: title}
+                )
             });
     };
 

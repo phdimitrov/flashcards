@@ -50,10 +50,6 @@ export default class DeckScreen extends React.Component {
     };
 
     handleStartQuiz = () => {
-
-        //clear the notification for today and set a for tomorrow
-        clearLocalNotification().then(setLocalNotification);
-
         this.props.navigation.navigate(
             'QuizScreen',
             {deckId: this.state.deck.title}

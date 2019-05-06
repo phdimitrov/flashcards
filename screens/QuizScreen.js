@@ -6,6 +6,7 @@ import {black} from "../utils/theme";
 import DefaultButton from "../components/common/DefaultButton";
 import {getDeck} from "../utils/api";
 import {AppLoading} from "expo";
+import {clearLocalNotification, setLocalNotification} from "../utils/helpers";
 
 /**
  * Displays a card question
@@ -91,6 +92,9 @@ export default class QuizScreen extends React.Component {
         const cardsLeft = Math.max(totalQuestions - cardIndex, 0);
 
         if (cardsLeft === 0) {
+            //clear the notification for today and set a for tomorrow when quiz ends
+            clearLocalNotification().then(setLocalNotification);
+
             //show results when no cards left
             const {correctAnswers} = this.state;
             const percentage = (totalQuestions === 0 ? 0 : (correctAnswers * 100) / totalQuestions).toFixed(2);

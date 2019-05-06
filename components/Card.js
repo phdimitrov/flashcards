@@ -13,10 +13,25 @@ export default class Card extends React.Component {
         style: PropTypes.object
     };
 
-    state = {
-        answerMode: false,
-        bounceValue: new Animated.Value(1),
-    };
+    static getDerivedStateFromProps(props, state) {
+        if (props.card !== state.card) {
+            state.card = props.card;
+            state.answerMode = false;
+            return state;
+        }
+
+        return null;
+    }
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            answerMode: false,
+            card: props.card,
+            bounceValue: new Animated.Value(1),
+        };
+    }
 
     handleCardFlip = () => {
         Animated.sequence([
@@ -30,8 +45,8 @@ export default class Card extends React.Component {
     };
 
     render() {
-        const {answerMode, bounceValue} = this.state;
-        const {question, answer} = this.props.card;
+        const {answerMode, bounceValue, card} = this.state;
+        const {question, answer} = card;
 
         return (
             <View style={[this.props.style]}>

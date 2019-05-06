@@ -56,9 +56,15 @@ export default class NewCard extends React.Component {
     };
 
     handleSubmit = () => {
+        const { question, answer} = this.state;
+
+        if(!question || !answer) {
+            return alert("Please fill both fields")
+        }
+
         const card = {
-            question: this.state.question,
-            answer: this.state.answer
+            question: question,
+            answer: answer
         };
 
         this.setState(() => ({
